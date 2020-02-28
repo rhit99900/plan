@@ -1,0 +1,21 @@
+swagger: "2.0"
+info:
+  $ref: ./info/info.yaml
+
+host: plan
+basePath: /api/v1/
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  basicAuth:
+    type: basic
+security:
+  - basicAuth: []
+
+
+paths:
+  $ref: ./paths/customer.yaml
+
+
