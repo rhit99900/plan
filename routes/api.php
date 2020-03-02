@@ -24,3 +24,5 @@ Route::post('customer','CustomerController@store');
 Route::put('customer','CustomerController@store');
 Route::get('customer/{id}','CustomerController@show');
 Route::delete('customer/{id}','CustomerController@destroy');
+
+Route::post('projects','ProjectContoller@add');

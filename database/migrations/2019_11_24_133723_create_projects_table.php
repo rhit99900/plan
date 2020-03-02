@@ -25,7 +25,8 @@ class CreateProjectsTable extends Migration
             $table->float('actual_hours');
             $table->unsignedBigInteger('owner_team_id');
             $table->unsignedBigInteger('added_by_customer_id');
-            $table->timestamps();            
+            $table->timestamps();  
+                        
         });
     }
 

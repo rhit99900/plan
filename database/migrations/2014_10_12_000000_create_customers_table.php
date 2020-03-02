@@ -31,8 +31,7 @@ class CreateCustomersTable extends Migration
             $table->string('password');
             $table->string('phone');
             $table->enum('status',[1,0,-1]);
-            $table->rememberToken();
-            $table->timestamps();
+            $table->rememberToken();            
         });
     }
 

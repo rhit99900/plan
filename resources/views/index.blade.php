@@ -11,8 +11,7 @@
       }
     </style>
   </head>
-  <body>
-    <!-- <redoc spec-url='http://localhost/Projects/Phoenix/api/swagger/swagger.yaml'></redoc> -->
+  <body>    
     <redoc spec-url='swagger.yaml'></redoc>
     <script src="https://rebilly.github.io/ReDoc/releases/latest/redoc.min.js"> </script>
   </body>
