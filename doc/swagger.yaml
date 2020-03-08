@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  # $ref: ./info/info.yaml
+  $ref: ./info/info.yaml
 
 host: plan
 basePath: /api/v1/
@@ -16,6 +16,6 @@ security:
 
 
 paths:
-  # $ref: ./paths/customer.yaml
+  $ref: ./paths/customer.yaml
 
 

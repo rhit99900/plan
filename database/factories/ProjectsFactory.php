@@ -18,10 +18,12 @@ use Faker\Generator as Faker;
 // $table->unsignedBigInteger('owner_team_id');
 // $table->unsignedBigInteger('added_by_customer_id');
 
-$factory->define(Model::class, function (Faker $faker) {
+$factory->define(App\Projects::class, function (Faker $faker) {
     return [
       'name'    => $faker->text(10),
       'descrption'  => $faker->text(40),
-      ''
+      'starts_on' => $faker->dateTime(),
+      'ends_on'  => $faker->dateTime(),
+      'est_hours' => $faker->randomFloat(1,0,10)      
     ];
 });

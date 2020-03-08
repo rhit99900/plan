@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests;
+use App\Projects as Project;
+use App\Http\Resources\Projects as ProjectResource;
+
 class ProjectsController extends Controller
 {
     /**
@@ -13,7 +17,8 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::paginate(15);
+        return ProjectResource::collection($projects);
     }
 
     /**
