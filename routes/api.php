@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-//Get All Customers
+//Customer API Querties
 Route::get('customers','CustomerController@index');
 Route::post('customer','CustomerController@store');
 Route::put('customer','CustomerController@store');
