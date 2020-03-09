@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Project as Project;
-use App\Http\Resources\Projects as ProjectResource;
-
-class ProjectsController extends Controller
+class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +13,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(15);
-        return ProjectResource::collection($projects);
+        //
     }
 
     /**
@@ -37,7 +32,8 @@ class ProjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //
     }
 

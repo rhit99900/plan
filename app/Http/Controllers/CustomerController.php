@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Customer;
+use Illuminate\Support\Facades\Input;
+use Auth;
+use Hash;
+
 use App\Http\Resources\Customer as CustomerResource;
 
 class CustomerController extends Controller
@@ -40,8 +44,7 @@ class CustomerController extends Controller
     {        
         
         $customer = $request->isMethod('put') ? Customer::findOrFail($request->id) : new Customer;
-
-        $customer->id = $request->input('id');
+    
         $customer->first_name = $request->input('first_name');
         $customer->last_name = $request->input('last_name');
         $customer->email = $request->input('email');
@@ -52,6 +55,40 @@ class CustomerController extends Controller
         
         if($customer->save()){
             return new CustomerResource($customer);
+        }
+    }
+
+    public function register(Request $request)
+    {        
+        
+        $customer = new Customer;
+
+        $customer->first_name   = $request->input('first_name');
+        $customer->last_name    = $request->input('last_name');
+        $customer->email        = $request->input('email');
+        $customer->phone        = $request->input('phone');
+        $customer->password     = hash::make('password'); //Setting Password As Password
+
+        if($customer->save()){            
+            return redirect()->intended('register/setpassword/'.$customer->id);            
+        }
+        else{
+            return "Registeration Failed";
+        }     
+    }
+
+    public function setPassword(Request $request){
+        $customer = Customer::find($request->input('customer_id'));
+
+        $password = $request->input('password');
+        $confirm_password = $request->input('confirm_password');
+
+        if($password == $confirm_password){
+            $customer->password = hash::make($password); //Setting New Password
+            $customer->updated_on = now();
+            if($customer->save()){
+                return redirect()->intended('login');
+            }            
         }
     }
 
@@ -66,6 +103,20 @@ class CustomerController extends Controller
         $customer = Customer::findOrFail($id);
         return new CustomerResource($customer);
     }
+    
+    public function login(Request $request){
+        $auth = Auth::attempt([
+            'email' => $request->input('email'),
+            'password' => $request->input('password')
+        ]);
+
+        if($auth){
+            return redirect()->intended('dashboard');
+        }
+        else{
+            return view('dashboard.error')->with('message','Invalid Email or Password');
+        }
+    }    
 
     /**
      * Show the form for editing the specified resource.
