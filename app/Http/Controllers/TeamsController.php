@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Hash;
+use App\Team;
 
-use App\Http\Requests;
-use App\Project as Project;
-use App\Http\Resources\Projects as ProjectResource;
-
-class ProjectsController extends Controller
+class TeamsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +16,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(15);
-        return ProjectResource::collection($projects);
+        //
     }
 
     /**
@@ -26,33 +24,30 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create(){
         //
     }
 
-    public function createProject(Request $request){
-     
-        if(Project::where('name',$request->input('project_name'))->where('owner_team_id',$request->input('team'))->firstOrFail()){        
-            $project = Project::where('name',$request->input('project_name'))
-                        ->where('owner_team_id',$request->input('team'))->first();            
+    public function createTeam(Request $request){
+
+        if(Team::where('name',$request->input('team_name'))->firstOrFail()){
+            $team = Team::where('name',$request->input('team_name'))->first();            
+            $team->uniqueId = hash::make(substr($request->input('team_name'),0,3));            
         }
         else{
-            $project = new Project;
-            $project->name = $request->input('project_name');
-            $project->description = $request->input('project_desc');
-            $project->status = '1';
-            $project->est_hours = $request->input('est_hours');
-            $project->actual_hours = 0;
-            $project->owner_team_id = $request->input('team');            
+            $team = new Team;
+            $team->name = $request->input('team_name');
+            $team->uniqueId = hash::make(substr($request->input('team_name'),0,3));
+            $team->status = '1';
         }
 
-        if($project->save()){
-            return view('dashboard.index')->with('projects',Project::all());
+        if($team->save()){
+            return view('projects.create')->with('teams',Team::all());
         }
         else{
-            return view('dashboard.error')->with('message','Could not create Project');
+            return view('dashboard.error')->with('message','Team not Created');
         }
+
 
     }
 
@@ -62,7 +57,8 @@ class ProjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         //
     }
 
@@ -110,4 +106,6 @@ class ProjectsController extends Controller
     {
         //
     }
+
+
 }

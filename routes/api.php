@@ -18,11 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-//Customer API Querties
+// Customer API Queries
 Route::get('customers','CustomerController@index');
 Route::post('customer','CustomerController@store');
 Route::put('customer','CustomerController@store');
 Route::get('customer/{id}','CustomerController@show');
 Route::delete('customer/{id}','CustomerController@destroy');
 
+// Team API Queries
+Route::get('teams','TeamController@index');
+
+// Project API Queries
 Route::get('projects','ProjectsController@index');

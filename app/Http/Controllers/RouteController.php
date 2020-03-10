@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Customer;
 use Auth;
+use App\Team;
 
 class RouteController extends Controller
 {
@@ -62,5 +63,23 @@ class RouteController extends Controller
     public function logout(){
         Auth::logout();
         return redirect('login');
+    }
+
+    public function createProject(){        
+        if(Auth::check()){            
+            return view('projects.create')->with('teams',Team::all());
+        }
+        else{
+            return view('customer.login');   
+        }
+    }
+
+    public function createTeam(){
+        if(Auth::check()){
+            return view('teams.create');
+        }
+        else{
+            return view('customer.login');
+        }
     }
 }

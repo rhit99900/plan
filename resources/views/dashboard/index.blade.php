@@ -14,7 +14,23 @@
                     <p>Email: {{Auth::user()->email}} </p>
                 </div>
 
+                <div class="row">
+                    <div class="col">
+                        <a href="{{route('teams/create')}}">Create Team</a>
+                    </div>
+                    <div class="col">
+                        <a href="{{route('projects/create')}}">Create Project</a>
+                    </div>                    
+                </div>
                 
+                @if(isset($projects))
+                <div class="row">
+                @foreach ($projects as $project)
+                    <h1>{{$project->name}}</h1>
+                    <p>{{$project->description}}</p>
+                @endforeach
+                </div>
+                @endif
 
             </div>
         </div>

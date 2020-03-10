@@ -16,4 +16,10 @@ class Customer extends Authenticatable
     public $keyType = 'integer';
     public $incementing = true;
 
+    //Relation with Other Tables
+
+    public function projects(){
+        return $this->hasMany('App\Project','added_by_customer_id','id');
+    }    
+
 }
